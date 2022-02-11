@@ -1,0 +1,49 @@
+﻿@page
+@model TaskChecklist.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>T01Job</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.T01Job.JobName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.T01Job.JobName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.T01Job.JobDesc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.T01Job.JobDesc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.T01Job.JobDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.T01Job.JobDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.T01Job.CreatedBy)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.T01Job.CreatedBy)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.T01Job.CreatedAt)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.T01Job.CreatedAt)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.T01Job.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

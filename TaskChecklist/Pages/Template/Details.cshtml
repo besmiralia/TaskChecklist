@@ -1,0 +1,54 @@
+﻿@page
+@model TaskChecklist.Pages.Template.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>T03Template</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.T03Template.TemplateName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.T03Template.TemplateName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.T03Template.Active)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.T03Template.Active)
+        </dd>
+        
+        <dt class="col-sm-2">
+            Tasks
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Task Name</th>
+                    <th>Order</th>
+                </tr>
+                @foreach (var item in Model.T04Tasks.OrderBy(x=>x.TaskOrder).ToList())
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TaskName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TaskOrder)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.T03Template.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

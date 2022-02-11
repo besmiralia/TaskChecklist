@@ -1,0 +1,89 @@
+﻿@page
+@model TaskChecklist.StartModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>@Model.T01Job.JobName</h1>
+
+<h4>@Model.T01Job.JobTemplate.TemplateName</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <table class="table">
+                <tr>
+                    <th>Task Name</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Duration</th>
+                    <th>Skip Task</th>
+                    <th>Comments</th>
+                </tr>
+                @foreach (var item in Model.T01Job.T02JobTasks.ToList())
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TaskName)
+                        </td>
+                        <td>
+                        @{
+                            if (!item.StartDate.HasValue)
+                            {
+                                <a class="btn btn-primary btn-sm" href="./Start?handler=Task&id=@(Model.T01Job.Id)&taskId=@(item.Id)">Start</a>
+                            }
+                            else
+                            {
+                                <div>@Html.DisplayFor(modelItem => item.StartDate)</div>
+                            }
+                        }
+                            
+                        </td>
+                        <td>                            
+                        @{
+                            if (!item.EndDate.HasValue && item.StartDate.HasValue)
+                            {
+                                <a class="btn btn-primary btn-sm" href="./Start?handler=Task&id=@(Model.T01Job.Id)&taskId=@(item.Id)">Stop</a>
+                            }
+                            else
+                            {
+                                <div>@Html.DisplayFor(modelItem => item.EndDate)</div>
+                            }
+                        }
+                        </td>
+                        <td>
+                        @{
+                            if(item.EndDate.HasValue && item.StartDate.HasValue)
+                            {
+                                <div>@((item.EndDate.Value - item.StartDate.Value).TotalSeconds)s</div>
+                            }
+                        }
+                        </td>
+                        <td>                                                        
+                        @{
+                            if (!item.TaskSkipped && !(item.StartDate.HasValue || item.EndDate.HasValue))
+                            {
+                                <a class="btn btn-primary btn-sm" href="./Start?handler=SkipTask&id=@(Model.T01Job.Id)&taskId=@(item.Id)">Skip</a>
+                            }
+                            else
+                            {
+                                <div>@Html.DisplayFor(modelItem => item.TaskSkipped)</div>
+                            }
+                        }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TaskComments)
+                        </td>
+                    </tr>
+                }
+            </table>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

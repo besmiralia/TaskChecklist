@@ -1,0 +1,59 @@
+﻿@page
+@model TaskChecklist.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.T01Job[0].JobName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.T01Job[0].JobDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.T01Job[0].JobDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.T01Job[0].CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.T01Job[0].CreatedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.T01Job) {
+        <tr>
+            <td>
+                <a asp-page="./Start" asp-route-id="@item.Id">@item.JobName</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

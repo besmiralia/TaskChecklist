@@ -12,9 +12,9 @@ namespace TaskChecklist.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            return Redirect("./Job");
         }
     }
 }
