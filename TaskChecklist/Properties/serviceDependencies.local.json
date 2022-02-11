@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "appInsights1": {
+      "type": "appInsights.sdk"
+    },
+    "identityapp1": {
+      "type": "identityapp.aad"
+    }
+  }
+}
