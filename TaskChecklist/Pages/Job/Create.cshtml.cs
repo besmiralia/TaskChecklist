@@ -59,7 +59,7 @@ namespace TaskChecklist
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Start?id="+ T01Job.Id);
+            return RedirectToPage("Start", new { id = T01Job.Id });
         }
     }
 }

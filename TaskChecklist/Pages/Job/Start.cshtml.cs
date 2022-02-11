@@ -50,7 +50,7 @@ namespace TaskChecklist
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("OnGetAsync", new { id = id });
+            return RedirectToPage("Start", new { id = id });
         }
 
         public async Task<IActionResult> OnGetSkipTask(int id, int taskId)
@@ -65,7 +65,7 @@ namespace TaskChecklist
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("OnGetAsync", new { id = id });
+            return RedirectToPage("Start", new { id = id });
         }
 
     }
