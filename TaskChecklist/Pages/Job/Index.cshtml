@@ -74,8 +74,11 @@
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (totalSecs == 0)
+                    {
+                        <a asp-page="./Edit" asp-route-id="@(item.Id)">Edit</a>
+                        <a asp-page="./Delete" asp-route-id="@(item.Id)">Delete</a>
+                    }
                 </td>
             </tr>
         }
