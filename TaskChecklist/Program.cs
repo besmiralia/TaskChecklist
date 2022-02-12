@@ -23,7 +23,7 @@ builder.Services.AddRazorPages()
 builder.Services.AddApplicationInsightsTelemetry();
 
 builder.Services.AddDbContext<DBTasksContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+  options.UseSqlServer(builder.Configuration["DefaultConnection"]));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
