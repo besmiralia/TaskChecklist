@@ -5,18 +5,30 @@
     ViewData["Title"] = "Add tasks to the template";
 }
 
-<h1></h1>
+<h1>@(ViewData["Title"])</h1>
 
-<h4>T03Template</h4>
+<h4>@(ViewData["TemplateName"])</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
+            <input type="hidden" asp-for="T03Template.Id"/>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="T03Template.TemplateName" class="control-label"></label>
-                <input asp-for="T03Template.TemplateName" class="form-control" />
-                <span asp-validation-for="T03Template.TemplateName" class="text-danger"></span>
+                <label asp-for="T04TemplateTask.TaskName" class="control-label"></label>
+                <input asp-for="T04TemplateTask.TaskName" class="form-control" />
+                <span asp-validation-for="T04TemplateTask.TaskName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="T04TemplateTask.TaskDesc" class="control-label"></label>
+                <input asp-for="T04TemplateTask.TaskDesc" class="form-control" />
+                <span asp-validation-for="T04TemplateTask.TaskDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="T04TemplateTask.TaskOrder" class="control-label"></label>
+                <input asp-for="T04TemplateTask.TaskOrder" class="form-control" />
+                <span asp-validation-for="T04TemplateTask.TaskOrder" class="text-danger"></span>
+                <small class="text-muted">Leave 0 for the next value</small>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

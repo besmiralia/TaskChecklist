@@ -2,20 +2,19 @@
 @model TaskChecklist.Pages.Template.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Template Details";
 }
 
-<h1>Details</h1>
+<h1>@(ViewData["Title"])</h1>
 
 <div>
-    <h4>T03Template</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.T03Template.TemplateName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.T03Template.TemplateName)
+            @Html.DisplayFor(model => model.T03Template.TemplateName) <a asp-page="./Edit" asp-route-id="@Model.T03Template.Id">Rename</a>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.T03Template.Active)
@@ -42,6 +41,11 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.TaskOrder)
                         </td>
+                        <td>
+                            <a class="btn-primary btn-sm btn-default" href="./AddTasks?handler=move&move=up&id=@(Model.T03Template.Id)&taskId=@(item.Id)">Move up</a>
+                            <a class="btn-primary btn-sm btn-default" href="./AddTasks?handler=move&move=down&id=@(Model.T03Template.Id)&taskId=@(item.Id)">Move down</a>
+                            <a class="btn-primary btn-sm btn-danger" href="./AddTasks?handler=delete&id=@(Model.T03Template.Id)&taskId=@(item.Id)">Delete</a>
+                        </td>
                     </tr>
                 }
             </table>
@@ -49,6 +53,5 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.T03Template.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>

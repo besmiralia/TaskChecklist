@@ -5,10 +5,10 @@
     ViewData["Title"] = "List of templates";
 }
 
-<h1>Index</h1>
+<h1>@(ViewData["Title"])</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a class="btn btn-primary btn-sm" asp-page="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -26,23 +26,23 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.T03Template) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TemplateName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @(item.T04TemplateTasks.Count)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.T03Template)
+        {
+            <tr>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id">@(item.TemplateName)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @(item.T04TemplateTasks.Count)
+                </td>
+                <td>
+                    <a asp-page="./AddTasks" asp-route-id="@item.Id">Add Tasks</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -23,7 +23,7 @@ namespace TaskChecklist
 
         public async Task OnGetAsync()
         {
-            T01Job = await _context.T01Jobs.ToListAsync();
+            T01Job = await _context.T01Jobs.Include(x=>x.JobTemplate).Include(x=>x.T02JobTasks).OrderByDescending(x=>x.Id).ToListAsync();
         }
     }
 }

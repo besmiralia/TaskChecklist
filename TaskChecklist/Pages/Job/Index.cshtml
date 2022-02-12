@@ -5,55 +5,79 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-page="Create">Create New</a>
+    <a class="btn btn-primary btn-sm" asp-page="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.T01Job[0].JobName)
+                Job Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.T01Job[0].JobDesc)
+                Job Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.T01Job[0].JobDate)
+                Tasks
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.T01Job[0].CreatedBy)
+                Duration
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.T01Job[0].CreatedAt)
+                Created By / On
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.T01Job) {
-        <tr>
-            <td>
-                <a asp-page="./Start" asp-route-id="@item.Id">@item.JobName</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobDesc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.T01Job)
+        {
+            <tr>
+                <td>
+                    <a asp-page="./Start" asp-route-id="@item.Id">@item.JobName</a>
+                    <label class="badge bg-info">@item.JobTemplate.TemplateName</label>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobDesc)
+                </td>
+                <td>
+                    @{
+                        var completed = item.T02JobTasks.Count(x => x.EndDate.HasValue);
+                        var inProgress = item.T02JobTasks.Count(x => x.StartDate.HasValue && !x.EndDate.HasValue);
+                        var notStarted = item.T02JobTasks.Count(x => !x.StartDate.HasValue);
+                        <span class="badge bg-success" title="Completed tasks">@completed</span>
+                        <span class="badge bg-danger" title="In Progress tasks">@inProgress</span>
+                        <span class="badge bg-info" title="Not started tasks">@notStarted</span>
+                    }
+                </td>
+                <td>
+                    @{
+                        var totalSecs = item.T02JobTasks.Where(x => x.EndDate.HasValue).Sum(x => (x.EndDate.Value - x.StartDate.Value).TotalSeconds);
+                        var duration = "";
+                        if (totalSecs > 3600) {
+                            duration += string.Format("{0}h ", (int)(totalSecs / 3600));
+                            totalSecs = totalSecs % 3600;
+                        }
+                        if (totalSecs > 60) {
+                            duration += string.Format("{0}m ", (int)(totalSecs / 60));
+                            totalSecs = totalSecs % 60;
+                        }
+                        if (totalSecs > 0) {
+                            duration += string.Format("{0}s ", (int)totalSecs);
+                        }
+                        <div>@(duration)</div>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                    <br/>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
