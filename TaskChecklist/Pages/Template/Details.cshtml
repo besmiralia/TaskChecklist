@@ -2,6 +2,7 @@
 @model TaskChecklist.Pages.Template.DetailsModel
 
 @{
+    var id = Model.T03Template.Id;
     ViewData["Title"] = "Template Details";
 }
 
@@ -14,7 +15,7 @@
             @Html.DisplayNameFor(model => model.T03Template.TemplateName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.T03Template.TemplateName) <a asp-page="./Edit" asp-route-id="@Model.T03Template.Id">Rename</a>
+            @Html.DisplayFor(model => model.T03Template.TemplateName) <a asp-page="./Edit" asp-route-id="@id">Rename</a>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.T03Template.Active)
@@ -24,13 +25,14 @@
         </dd>
         
         <dt class="col-sm-2">
-            Tasks
+            <a asp-page="./AddTasks" asp-route-id="@id" class="btn btn-primary btn-sm">Add task</a>
         </dt>
         <dd class="col-sm-10">
             <table class="table">
                 <tr>
                     <th>Task Name</th>
                     <th>Order</th>
+                    <th>Actions</th>
                 </tr>
                 @foreach (var item in Model.T04Tasks.OrderBy(x=>x.TaskOrder).ToList())
                 {
@@ -42,9 +44,9 @@
                             @Html.DisplayFor(modelItem => item.TaskOrder)
                         </td>
                         <td>
-                            <a class="btn-primary btn-sm btn-default" href="./AddTasks?handler=move&move=up&id=@(Model.T03Template.Id)&taskId=@(item.Id)">Move up</a>
-                            <a class="btn-primary btn-sm btn-default" href="./AddTasks?handler=move&move=down&id=@(Model.T03Template.Id)&taskId=@(item.Id)">Move down</a>
-                            <a class="btn-primary btn-sm btn-danger" href="./AddTasks?handler=delete&id=@(Model.T03Template.Id)&taskId=@(item.Id)">Delete</a>
+                            <a class="btn-info btn-sm btn" href="./AddTasks?handler=move&move=up&id=@(id)&taskId=@(item.Id)">Move up</a>
+                            <a class="btn-info btn-sm btn" href="./AddTasks?handler=move&move=down&id=@(id)&taskId=@(item.Id)">Move down</a>
+                            <a class="btn btn-sm btn-danger" href="./AddTasks?handler=delete&id=@(id)&taskId=@(item.Id)">Delete</a>
                         </td>
                     </tr>
                 }

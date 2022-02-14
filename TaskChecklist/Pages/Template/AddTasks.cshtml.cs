@@ -48,10 +48,19 @@ namespace TaskChecklist.Pages.Template
             {
                 return Page();
             }*/
-            if(T04TemplateTask.TaskOrder == 0)
+            if(T04TemplateTask.TaskOrder <= 0)
             {
                 var max = _context.T04TemplateTasks.Where(m => m.TemplateId == id).Count();
                 T04TemplateTask.TaskOrder = max + 1;
+            }
+            else
+            {
+                var TO4s = _context.T04TemplateTasks.Where(x => x.TemplateId == id && x.TaskOrder >= T04TemplateTask.TaskOrder).ToList();
+                var i = 1;
+                foreach (var t04 in TO4s)
+                {
+                    t04.TaskOrder = T04TemplateTask.TaskOrder + i++;
+                }
             }
             T04TemplateTask.TemplateId = id;
             T04TemplateTask.UpdatedAt = DateTime.Now;
@@ -59,7 +68,7 @@ namespace TaskChecklist.Pages.Template
             _context.T04TemplateTasks.Add(T04TemplateTask);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("Details", new { id = id });
         }
         public async Task<IActionResult> OnGetMove(int id, int taskId, string move)
         {
