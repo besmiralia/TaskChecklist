@@ -8,6 +8,17 @@
     },
     "identityapp1": {
       "type": "identityapp.aad"
+    },
+    "secrets2": {
+      "secretStore": null,
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/kv-gphub-dev-eastus",
+      "type": "secrets.keyVault",
+      "connectionId": "VaultUri"
+    },
+    "mssql1": {
+      "secretStore": "AzureKeyVault",
+      "type": "mssql.onprem",
+      "connectionId": "DefaultConnection"
     }
   }
 }
